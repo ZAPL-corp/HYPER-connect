@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYPER Connect — FAQ</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --text-color: #e2e8f0;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--accent-blue);
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-weight: 500;
+            transition: transform 0.2s;
+        }
+
+        .back-link:hover {
+            transform: translateX(-4px);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 40px;
+        }
+
+        /* Стили спойлеров вопросов */
+        details {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        details[open] {
+            border-color: rgba(139, 92, 246, 0.3);
+            background: rgba(139, 92, 246, 0.02);
+        }
+
+        summary {
+            padding: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            position: relative;
+            outline: none;
+            user-select: none;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.4rem;
+            color: var(--accent-blue);
+            transition: transform 0.3s;
+        }
+
+        details[open] summary::after {
+            content: '−';
+            transform: translateY(-50%) rotate(180deg);
+            color: var(--accent-purple);
+        }
+
+        .answer {
+            padding: 0 20px 20px 20px;
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="../connect/index.html" class="back-link">← Вернуться на главную</a>
+        
+        <h1>Часто задаваемые вопросы</h1>
+        <p class="subtitle">Все, что вам нужно знать о технологии HYPER Connect на текущий момент.</p>
+
+        <main>
+            <details open>
+                <summary>Можно ли подключить сторонние приложения к HYPER Connect?</summary>
+                <div class="answer">
+                    На данный момент (май 2026 года) прямое подключение эксклюзивно закреплено за официальным мессенджером HYPER. Интеграция сторонних кастомных клиентов пока закрыта разработчиками экосистемы.
+                </div>
+            </details>
+
+            <details>
+                <summary>Какие языки программирования поддерживаются?</summary>
+                <div class="answer">
+                    Архитектура платформы ориентирована на простое развертывание сетевых сценариев на Node.JS (JavaScript) и Python. Вы сможете без проблем привязать свои бэкенд-сервера, работающие на этих экосистемах.
+                </div>
+            </details>
+
+            <details>
+                <summary>Где я могу сообщить об ошибке или предложить функцию?</summary>
+                <div class="answer">
+                    Вы можете зайти в официальный репозиторий ZAPL-corp на GitHub и открыть обращение в разделах **Issues** для багов или оформить **Pull Request**, если у вас есть готовое решение.
+                </div>
+            </details>
+        </main>
+
+        <footer>
+            &copy; 2026 ZAPL-corp. Все права защищены.
+        </footer>
+    </div>
+
+</body>
+</html>

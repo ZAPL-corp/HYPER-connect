@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYPER Connect</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --text-color: #e2e8f0;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Плавный анимированный фон */
+        .bg-blur {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #12131a, #050507);
+        }
+
+        .blob {
+            position: absolute;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.25;
+            animation: float 12s infinite alternate ease-in-out;
+        }
+
+        .blob-1 { width: 400px; height: 400px; top: -10%; left: -10%; animation-duration: 14s; }
+        .blob-2 { width: 500px; height: 500px; bottom: -10%; right: -10%; animation-duration: 18s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(80px, 50px) scale(1.15); }
+        }
+
+        /* Главный контейнер */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Шапка */
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            margin-top: 40px;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, #fff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Секции (Зигзаг) */
+        .section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            margin-bottom: 100px;
+        }
+
+        .section.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .content-box {
+            flex: 1;
+        }
+
+        .content-box h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #fff;
+            border-left: 4px solid var(--accent-purple);
+            padding-left: 15px;
+        }
+
+        .content-box p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #cbd5e1;
+        }
+
+        /* Анимации справа/слева */
+        .animation-box {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 250px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Мини-анимация 1: Серверные коннекты */
+        .net-node {
+            width: 12px;
+            height: 12px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 0 15px var(--accent-blue);
+        }
+        .node-center { top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; box-shadow: 0 0 20px #fff;}
+        .node-1 { top: 25%; left: 25%; animation: wave 3s infinite ease-in-out; }
+        .node-2 { top: 75%; left: 30%; animation: wave 3.5s infinite ease-in-out 0.5s; }
+        .node-3 { top: 40%; right: 20%; animation: wave 4s infinite ease-in-out 1s; }
+
+        @keyframes wave {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.4); opacity: 1; }
+        }
+
+        /* Круглая кнопка HYPER */
+        .hyper-btn {
+            width: 110px;
+            height: 110px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.4);
+            transition: all 0.4s ease;
+            animation: orb-pulse 2.5s infinite;
+        }
+
+        .hyper-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.7);
+        }
+
+        @keyframes orb-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.5); }
+            70% { box-shadow: 0 0 0 20px rgba(139, 92, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+        }
+
+        /* Кастомные тултипы (кастомное форматирование GitHub-скобок) */
+        .tooltip {
+            position: relative;
+            border-bottom: 1px dashed var(--accent-blue);
+            color: #fff;
+            cursor: help;
+            padding: 0 2px;
+            display: inline-block;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 260px;
+            background-color: #1e1e24;
+            color: #e2e8f0;
+            text-align: left;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        /* Кнопка перехода в FAQ */
+        .faq-nav-box {
+            text-align: center;
+            margin: 40px 0 60px 0;
+        }
+
+        .faq-btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .faq-btn:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
+
+        /* Подвал */
+        footer {
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 40px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        footer h4 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer ul li {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--accent-blue);
+        }
+
+        .license-text {
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .section, .section.reverse {
+                flex-direction: column;
+                gap: 30px;
+            }
+            footer {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            header h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blur">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>HYPER Connect</h1>
+            <p>новое соединение!</p>
+        </header>
+
+        <!-- Блок 1 (Текст слева, анимация справа) -->
+        <section class="section">
+            <div class="content-box">
+                <h2>Для чего нужен Hyper Connect?</h2>
+                <p>
+                    Hyper Connect помогает начинающим программистам на 
+                    <span class="tooltip">Node.JS<span class="tooltip-text">Платформа выполнения кода JavaScript с открытым исходным кодом.</span></span> 
+                    в стеке с 
+                    <span class="tooltip">HTML5<span class="tooltip-text">Hyper Text Markup Language ver.5, предназначенная для структурирования и представления содержимого Всемирной паутины. Это не только версия языка, но и набор технологий для создания веб-сайтов и веб-приложений.</span></span> 
+                    или 
+                    <span class="tooltip">Python<span class="tooltip-text">Высокоуровневый язык программирования общего назначения.</span></span>, 
+                    реализовывать удобное соединение со своим сервером, будь то 
+                    <span class="tooltip">server.js<span class="tooltip-text">Это библиотека для создания веб-серверов на платформе Node.js.</span></span> 
+                    или другой технический сервер.
+                </p>
+            </div>
+            <div class="animation-box">
+                <div class="net-node node-center"></div>
+                <div class="net-node node-1"></div>
+                <div class="net-node node-2"></div>
+                <div class="net-node node-3"></div>
+            </div>
+        </section>
+
+        <!-- Блок 2 (Анимация слева, текст справа) -->
+        <section class="section reverse">
+            <div class="content-box">
+                <h2>Как подключить HYPER Connect?</h2>
+                <p>
+                    На момент 29.05.2026 соединение с HYPER Connect имеет только мессенджер 
+                    <span class="tooltip">HYPER<span class="tooltip-text">(от лат. сверх / хайповый [термин, который обозначает шумиху, ажиотаж, дешёвую и кратковременную популярность вокруг определённой темы]) мессенджер на базе HYPER Connect + Node.JS со своими серверами</span></span> 
+                    мессенджер на базе HYPER Connect + Node.JS со своими серверами, других способов подключения к сожалению нету.
+                </p>
+            </div>
+            <div class="animation-box">
+                <a href="https://hyper-messenger.ru" target="_blank" class="hyper-btn">hyper</a>
+            </div>
+        </section>
+
+        <!-- Кнопка перехода в FAQ перед футером -->
+        <div class="faq-nav-box">
+            <a href="../faq/index.html" class="faq-btn">Перейти к FAQ →</a>
+        </div>
+
+        <!-- Подвал -->
+        <footer>
+            <div class="license-text">
+                <p>HYPER license agree auto.</p>
+            </div>
+            <div>
+                <h4>Стек технологий</h4>
+                <ul>
+                    <li><a href="https://nodejs.org/" target="_blank">Node.JS</a></li>
+                    <li><a href="https://ru.wikipedia.org/wiki/HTML5?ysclid=mprckw5kmt822044163" target="_blank">HTML5</a></li>
+                    <li><a href="https://docs.python.org/3/faq/" target="_blank">Python3 FAQ</a></li>
+                    <li><a href="https://python.org" target="_blank">Python</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Дополнительно</h4>
+                <ul>
+                    <li><a href="https://github.com/ZAPL-corp/HYPER-connect" target="_blank">GitHub</a></li>
+                    <li><a href="https://github.com/ZAPL-corp/HYPER-connect/issues" target="_blank">Issue</a></li>
+                    <li><a href="https://github.com/ZAPL-corp/HYPER-connect/pulls" target="_blank">Pull</a></li>
+                    <li><a href="../faq/index.html">FaQ</a></li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>
